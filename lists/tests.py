@@ -25,4 +25,20 @@ class HomePageTest(TestCase):
     ## Never do "wibble = 3 | from myprogram import wibble | assert wibble == 3"
     ## Unit tests are really about testing logic, flow control, and configuration.
     expectedHtml = render_to_string('lists/home.html')
+    self.assertIn(response.content.decode(), expectedHtml)
+
+  def testHomePageCanSaveAPostRequest(self):
+    # Un test no utiliza un browser para hacer solicitudes por tanto, utilizar
+    # objetos Request para enviar informacion al servidor.
+    request = HttpRequest()
+    request.method = 'POST'
+    request.POST['itemText'] = 'A new list item'
+
+    response = homePage(request)
+
+    self.assertIn('A new list item', response.content.decode())
+    expectedHtml = render_to_string(
+      'lists/home.html',
+      {'newItemText': 'A new list item'}
+    )
     self.assertEqual(response.content.decode(), expectedHtml)

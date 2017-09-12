@@ -36,15 +36,20 @@ class NewVisitorTest(unittest.TestCase):
     # "1: Buy peacock feathers" as an item in a to-do list table.
     inputBox.send_keys(Keys.ENTER)
 
+    # import time
+    # time.sleep(10)
     table = self.browser.find_element_by_id('idListTable')
     rows = table.find_elements_by_tag_name('tr')
-    self.assertTrue(
-      any(row.text == '1. Buy peacock feathers' for row in rows),
-      "New to-do item did not appear in table")
+    # self.assertTrue(
+    #   any(row.text == '1: Buy peacock feathers' for row in rows), # assert
+    #   "New to-do item did not appear in table -- its text was:\n%s" % (table.text)  # errMessage
+    # )
+    self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+
 
     # There is still a text box inviting her to add another item. She ENTERS:
     # "Use peacock feathers to make a fly" (Edith is very methodical).
-    self.fail('Finish the test!')
+    # self.fail('Finish the test!')
 
 
 if __name__ == '__main__':

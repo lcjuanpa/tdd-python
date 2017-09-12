@@ -2,5 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def homePage(request):
-  return render(request, 'lists/home.html')
-
+  return render(request, 'lists/home.html', {
+    'newItemText': request.POST.get('itemText', ''),
+  })
