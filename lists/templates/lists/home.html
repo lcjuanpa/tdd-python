@@ -12,7 +12,9 @@
   </form>
 
   <table id="idListTable">
-    <tr><td>1: {{ newItemText }}</td></tr>
+    {% for item in items %}
+      <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+    {% endfor %}
   </table>
 </body>
 </html>
