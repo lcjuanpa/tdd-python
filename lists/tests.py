@@ -42,3 +42,26 @@ class HomePageTest(TestCase):
       {'newItemText': 'A new list item'}
     )
     self.assertEqual(response.content.decode(), expectedHtml)
+
+
+
+from lists.models import Item
+
+class ItemModelTest(TestCase):
+
+  def testSavingAndRetrievingItems(self):
+    firstItem = Item()
+    firstItem.text = 'The first (ever) list item'
+    firstItem.save()
+
+    secondItem = Item()
+    secondItem.text = 'Item the second'
+    secondItem.save()
+
+    savedItems = Item.objects.all()
+    self.assertEqual(savedItems.count(), 2)
+
+    firstSavedItem = savedItems[0]
+    secondSavedItem = savedItems[1]
+    self.assertEqual(firstSavedItem.text, 'The first (ever) list item')
+    self.assertEqual(secondSavedItem.text, 'Item the second')
